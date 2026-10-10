@@ -435,6 +435,66 @@
             transform: scale(1.7);
             box-shadow: 0 0 40px var(--neon-cyan);
         }
+
+        /* ============================================================
+           СЧЁТЧИК ПОСЕТИТЕЛЕЙ — свой код, без внешних сервисов
+           ============================================================ */
+        .visitors {
+            position: fixed;
+            top: 1.8rem;
+            right: 6.5rem;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 1.1rem;
+            border-radius: 30px;
+            border: 1px solid var(--color-border);
+            background: rgba(5, 5, 10, 0.7);
+            backdrop-filter: blur(16px);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-dim);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .visitors:hover {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(77, 252, 255, 0.15);
+        }
+        .visitors__icon {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--neon-lime);
+            box-shadow: 0 0 12px var(--neon-lime);
+            flex-shrink: 0;
+        }
+        .visitors--offline .visitors__icon {
+            background: var(--color-text-muted);
+            box-shadow: none;
+        }
+        .visitors__num {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-text);
+            letter-spacing: 0.02em;
+        }
+        .visitors__label {
+            font-size: 0.62rem;
+            opacity: 0.75;
+        }
+        /* На мобильных верх занят брендмарком и кнопкой меню. */
+        @media (max-width: 860px) {
+            .visitors {
+                display: none;
+            }
+        }
+
         .mobile-menu-toggle {
             display: none;
             position: fixed;
@@ -451,8 +511,7 @@
             line-height: 1;
             cursor: pointer;
             transition: var(--transition);
-        }
-        .mobile-menu-toggle:hover {
+        }        .mobile-menu-toggle:hover {
             border-color: var(--neon-cyan);
         }
         .mobile-menu {
@@ -2251,6 +2310,14 @@
     <!-- Бренд и навигация -->
     <a href="#hero" class="brandmark">ВЕРШАВАРИК</a>
 
+    <!-- Счётчик: реальные уникальные посетители, а не просмотры.
+         Значение подставляет скрипт в конце файла. -->
+    <div class="visitors" id="visitorsCounter" title="Уникальные посетители сайта">
+        <span class="visitors__icon" aria-hidden="true"></span>
+        <span class="visitors__num" id="visitorsNum">—</span>
+        <span class="visitors__label">посетителей</span>
+    </div>
+
     <nav class="dotnav" aria-label="Навигация по разделам">
         <a href="#hero" data-label="Главная" class="dotnav__dot active"></a>
         <a href="#about" data-label="Обо мне" class="dotnav__dot"></a>
@@ -2696,24 +2763,44 @@
     </div>
     <div class="timeline">
         <article class="timeline__item reveal reveal-from-left reveal-d1">
-            <span class="timeline__date">03.04.2026</span>
-            <p>Вернулся из Артека (1 поездка).</p>
+            <span class="timeline__date">10.10.2026</span>
+            <p>Переписал сайт: настоящие фото Тюмени вместо эмодзи и новые проекты.</p>
         </article>
         <article class="timeline__item reveal reveal-from-left reveal-d2">
-            <span class="timeline__date">14.06.2026</span>
-            <p>Начал строить Garage Empire Tycoon.</p>
+            <span class="timeline__date">03.10.2026</span>
+            <p>VibeMatch дорос до прода: рефералка, атрибуция источников и метрики рекламы.</p>
+        </article>
+        <article class="timeline__item reveal reveal-from-left reveal-d3">
+            <span class="timeline__date">06.10.2026</span>
+            <p>В V-Rik перевёл голос на WebRTC — Render не пробрасывает UDP.</p>
+        </article>
+        <article class="timeline__item reveal reveal-from-left reveal-d4">
+            <span class="timeline__date">02.10.2026</span>
+            <p>Eno Card Battle вышла в Яндекс Игры.</p>
+        </article>
+        <article class="timeline__item reveal reveal-from-left reveal-d5">
+            <span class="timeline__date">27.09.2026</span>
+            <p>Начал VibeMatch — подбор людей по Vibe DNA.</p>
+        </article>
+        <article class="timeline__item reveal reveal-from-left reveal-d1">
+            <span class="timeline__date">07.08.2026</span>
+            <p>Первый коммит V-Rik: мессенджер на микросервисах.</p>
+        </article>
+        <article class="timeline__item reveal reveal-from-left reveal-d2">
+            <span class="timeline__date">01.07.2026</span>
+            <p>Собрал roblox-skills — 40 скиллов для разработки игр в Roblox.</p>
         </article>
         <article class="timeline__item reveal reveal-from-left reveal-d3">
             <span class="timeline__date">15.06.2026</span>
             <p>Понял, что лучший звук в Тюмени — как открывается подъезд.</p>
         </article>
         <article class="timeline__item reveal reveal-from-left reveal-d4">
-            <span class="timeline__date">16.06.2026</span>
-            <p>Запланировал VershaVPN.</p>
+            <span class="timeline__date">14.06.2026</span>
+            <p>Начал Garage Empire Tycoon.</p>
         </article>
         <article class="timeline__item reveal reveal-from-left reveal-d5">
-            <span class="timeline__date">17.06.2026</span>
-            <p>Поставил цель: заработать много денег.</p>
+            <span class="timeline__date">03.04.2026</span>
+            <p>Вернулся из Артека (1 поездка).</p>
         </article>
     </div>
 </section>
@@ -3284,6 +3371,76 @@
             const delay = (i % 5) * 0.3;
             el.style.animation = `floatIcon ${3 + i % 3}s ease-in-out ${delay}s infinite`;
         });
+    })();
+
+    // ============================================================
+    // 18. СЧЁТЧИК УНИКАЛЬНЫХ ПОСЕТИТЕЛЕЙ
+    // ============================================================
+    // Считаем людей, а не запросы: каждому браузеру выдаётся один
+    // уникальный ID, и залогиненный повторный заход его не увеличивает.
+    //
+    // Свой endpoint здесь намеренно не прописан: без сервера, который
+    // хранит множество ID, счётчик показал бы только твои же визиты.
+    // Как только появится адрес бэкенда, впиши его в VISITOR_ENDPOINT
+    // ниже — и счётчик начнёт считать настоящих гостей.
+    (function() {
+        const box = document.getElementById('visitorsCounter');
+        const num = document.getElementById('visitorsNum');
+        if (!box || !num) return;
+
+        // Впиши сюда адрес своего эндпоинта, когда появится.
+        const VISITOR_ENDPOINT = '';
+
+        const KEY = 'vv_visitor_id';
+
+        function readVisitorId() {
+            try { return localStorage.getItem(KEY); } catch (e) { return null; }
+        }
+        function writeVisitorId(id) {
+            try { localStorage.setItem(KEY, id); } catch (e) { /* приватный режим */ }
+        }
+
+        function makeId() {
+            if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+            // Запасной вариант для старых браузеров
+            return 'v-' + Date.now().toString(36) + '-' +
+                Math.random().toString(36).slice(2, 10);
+        }
+
+        if (!VISITOR_ENDPOINT) {
+            // Сервера нет — показываем честный локальный счётчик визитов
+            // этого браузера и честно помечаем его как офлайн-режим.
+            const visitsKey = 'vv_local_visits';
+            let visits = 0;
+            try { visits = parseInt(localStorage.getItem(visitsKey) || '0', 10) + 1; } catch (e) { visits = 1; }
+            try { localStorage.setItem(visitsKey, String(visits)); } catch (e) { }
+            num.textContent = String(visits);
+            box.classList.add('visitors--offline');
+            box.title = 'Без сервера показываются только визиты этого браузера';
+            return;
+        }
+
+        // Сервер есть: шлём ID один раз, потом только читаем значение.
+        let id = readVisitorId();
+        const isNew = !id;
+        if (isNew) {
+            id = makeId();
+            writeVisitorId(id);
+        }
+
+        fetch(VISITOR_ENDPOINT, {
+            method: isNew ? 'POST' : 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: isNew ? JSON.stringify({ id: id }) : undefined
+        })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (typeof data.total === 'number') num.textContent = String(data.total);
+            })
+            .catch(function() {
+                num.textContent = '—';
+                box.classList.add('visitors--offline');
+            });
     })();
 
     console.log('🚀 Вершаварик 2056 — сайт загружен!');
