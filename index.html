@@ -1689,111 +1689,146 @@
         }
 
         /* ============================================================
-           MEMES — теперь только эмодзи
+           ROMABURGER™ — секция с бургером Ромы
         ============================================================ */
-        .memes__grid {
+        .burger-card {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 2rem;
-        }
-        @media (max-width: 500px) {
-            .memes__grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-        }
-        .meme-card {
+            grid-template-columns: minmax(240px, 340px) 1fr;
+            gap: clamp(1.8rem, 5vw, 3.4rem);
+            align-items: center;
             background: var(--color-glass);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(18px);
             border: 1px solid var(--color-border);
             border-radius: var(--radius);
-            padding: 1.4rem 1rem 1.2rem;
-            text-align: center;
-            transition: var(--transition);
+            padding: clamp(1.6rem, 4vw, 2.8rem);
             position: relative;
             overflow: hidden;
-            cursor: default;
+            transition: var(--transition);
+        }
+        .burger-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 18% 50%, rgba(255, 123, 63, 0.16), transparent 60%);
+            pointer-events: none;
+        }
+        .burger-card:hover {
+            border-color: rgba(255, 123, 63, 0.4);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 123, 63, 0.1);
+        }
+        .burger-card__art {
+            position: relative;
+            z-index: 1;
+        }
+        .burger {
+            display: block;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+            filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.55));
+            animation: burgerFloat 6s ease-in-out infinite;
+        }
+        @keyframes burgerFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-14px) rotate(1deg); }
+        }
+        .burger-card__body {
+            position: relative;
+            z-index: 1;
+        }
+        .burger-card__kicker {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--neon-orange);
+            margin-bottom: 0.5rem;
+        }
+        .burger-card__title {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.9rem;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .burger-card__text {
+            color: var(--color-text-dim);
+            font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+            line-height: 1.75;
+            max-width: 52ch;
+        }
+        .burger-card__stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.8rem;
+        }
+        .burger-stat {
+            flex: 1 1 110px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            transform-style: preserve-3d;
-            perspective: 700px;
-            min-height: 220px;
-            height: 100%;
+            gap: 0.25rem;
+            padding: 0.9rem 1.1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: rgba(255, 255, 255, 0.02);
         }
-        .meme-card:hover {
-            transform: scale(1.06) rotate(-3deg) rotateX(4deg) rotateY(6deg);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(77, 252, 255, 0.1);
-        }
-        .meme-card .meme-emoji {
-            font-size: 4.5rem;
-            line-height: 1.2;
-            margin-bottom: 0.6rem;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            flex-shrink: 0;
-        }
-        .meme-card:hover .meme-emoji {
-            transform: scale(1.3) rotate(8deg) translateZ(20px);
-        }
-        .meme-card .meme-text {
+        .burger-stat__num {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.05rem;
             color: var(--color-text);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 600;
-            max-width: 100%;
-            overflow-wrap: anywhere;
-            word-break: break-word;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            width: 100%;
-            flex-shrink: 0;
         }
-        .meme-card .meme-sub {
+        .burger-stat__label {
             font-family: var(--font-mono);
             font-size: 0.6rem;
-            color: var(--color-text-dim);
-            margin-top: 0.3rem;
-            letter-spacing: 0.08em;
-            flex-shrink: 0;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
         }
-
-        /* ============================================================
-           GALLERY
-        ============================================================ */
-        .gallery__grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.6rem;
-        }
-        .gallery-item {
-            background: var(--color-glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius);
-            padding: 1.4rem;
-            text-align: center;
-            transition: var(--transition);
-            font-size: 3.4rem;
-            transform-style: preserve-3d;
-            perspective: 500px;
-        }
-        .gallery-item:hover {
-            transform: scale(1.1) rotate(6deg) rotateX(3deg) rotateY(6deg);
-            border-color: var(--neon-magenta);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-        .gallery-item span {
-            display: block;
-            font-size: 0.75rem;
+        .burger-card__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.8rem;
+            padding: 0.75rem 1.8rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
+            background: rgba(255, 123, 63, 0.06);
             font-family: var(--font-mono);
-            color: var(--color-text-dim);
-            margin-top: 0.4rem;
-            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .burger-card__btn:hover {
+            background: rgba(255, 123, 63, 0.14);
+            box-shadow: 0 0 40px rgba(255, 123, 63, 0.2);
+            transform: translateY(-2px);
+        }
+        /* На планшете бургер сверху, текст снизу */
+        @media (max-width: 860px) {
+            .burger-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .burger-card__text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .burger-card__stats {
+                justify-content: center;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .burger {
+                animation: none;
+            }
         }
 
         /* ============================================================
@@ -2168,9 +2203,6 @@
             .projects__grid {
                 grid-template-columns: 1fr;
             }
-            .gallery__grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
             .orbiting-shapes {
                 display: none;
             }
@@ -2198,9 +2230,6 @@
             .walks__grid {
                 grid-template-columns: 1fr;
             }
-            .gallery__grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
             .friends__grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -2217,9 +2246,6 @@
             }
             .friend-card h3 {
                 font-size: 1rem;
-            }
-            .memes__grid {
-                grid-template-columns: 1fr 1fr;
             }
             .hero__name {
                 font-size: clamp(2rem, 10vw, 2.8rem);
@@ -2327,8 +2353,7 @@
         <a href="#social" data-label="Соцсети" class="dotnav__dot"></a>
         <a href="#walks" data-label="Прогулки" class="dotnav__dot"></a>
         <a href="#projects" data-label="Проекты" class="dotnav__dot"></a>
-        <a href="#memes" data-label="Мемы" class="dotnav__dot"></a>
-        <a href="#gallery" data-label="Галерея" class="dotnav__dot"></a>
+        <a href="#romaburger" data-label="RomaBurger™" class="dotnav__dot"></a>
         <a href="#stats" data-label="Статистика" class="dotnav__dot"></a>
         <a href="#quote" data-label="Цитаты" class="dotnav__dot"></a>
         <a href="#news" data-label="Новости" class="dotnav__dot"></a>
@@ -2343,8 +2368,7 @@
         <a href="#social">Соцсети</a>
         <a href="#walks">Прогулки</a>
         <a href="#projects">Проекты</a>
-        <a href="#memes">Мемы</a>
-        <a href="#gallery">Галерея</a>
+        <a href="#romaburger">RomaBurger™</a>
         <a href="#stats">Статистика</a>
         <a href="#quote">Цитаты</a>
         <a href="#news">Новости</a>
@@ -2677,67 +2701,107 @@
 </section>
 
 <!-- MEMES — теперь только эмодзи -->
-<section id="memes" class="section memes">
+<!-- ROMABURGER™ -->
+<section id="romaburger" class="section romaburger">
     <div class="section__head">
-        <p class="eyebrow">07 / мемы</p>
-        <h2>Смешные картинки</h2>
+        <p class="eyebrow">07 / легенда</p>
+        <h2>RomaBurger™</h2>
     </div>
-    <div class="memes__grid">
-        <div class="meme-card reveal reveal-rotate reveal-d1">
-            <div class="meme-emoji">😂</div>
-            <div class="meme-text">Когда проснулся, а уже 12:00</div>
-            <div class="meme-sub">#утро</div>
+    <div class="burger-card reveal reveal-from-bottom">
+        <div class="burger-card__art">
+            <!-- Бургер Ромы: нарисован на SVG, без картинок и внешних ресурсов -->
+            <svg class="burger" viewBox="0 0 200 200" role="img" aria-label="Бургер Рома в наушниках с телефоном">
+                <!-- свечение за спиной -->
+                <ellipse cx="100" cy="112" rx="72" ry="70" fill="rgba(255,125,63,0.14)" />
+                <!-- ножка стула -->
+                <rect x="146" y="132" width="9" height="54" rx="4" fill="#272E3F" />
+                <rect x="128" y="182" width="46" height="8" rx="4" fill="#323B52" />
+                <!-- корпус кресла -->
+                <path d="M140 172 L160 172 L164 128 L138 128 Z" fill="#1C222F" />
+                <!-- задняя нога -->
+                <path d="M130 186 L146 186 L150 160 L136 160 Z" fill="#1A202D" />
+                <!-- штанина -->
+                <path d="M78 150 L124 150 L126 190 L104 190 L100 160 Z" fill="#39425A" />
+                <!-- кроссовок -->
+                <path d="M100 180 L136 180 L140 194 L84 194 Z" fill="#F4F6FB" />
+                <path d="M84 194 L140 194 L140 198 L84 198 Z" fill="#C9CEDC" />
+                <!-- туловище кофты -->
+                <path d="M66 96 C66 128 78 152 104 152 C130 152 140 128 140 96 Z" fill="#FF7B3F" />
+                <!-- рукав -->
+                <path d="M134 104 C148 116 150 132 142 140 C132 144 124 134 124 116 Z" fill="#E86A2E" />
+                <!-- рука к телефону -->
+                <path d="M138 128 C144 126 148 122 150 116 L158 124 C154 136 146 142 138 142 Z" fill="#F2C39A" />
+                <!-- кисть -->
+                <ellipse cx="152" cy="122" rx="13" ry="10" fill="#FAD6B0" transform="rotate(-24 152 122)" />
+                <!-- телефон -->
+                <rect x="146" y="96" width="34" height="56" rx="8" fill="#101625" stroke="#4A5470" stroke-width="2" />
+                <rect x="151" y="103" width="24" height="40" rx="3" fill="#2D3A54" />
+                <!-- экран игры: пиксельные блоки как сцена из роблокса -->
+                <rect x="155" y="112" width="16" height="6" rx="1" fill="#63E6BE" />
+                <rect x="155" y="122" width="10" height="6" rx="1" fill="#74C0FC" />
+                <rect x="167" y="122" width="4" height="6" rx="1" fill="#FFD43B" />
+                <rect x="155" y="132" width="16" height="4" rx="1" fill="#B197FC" />
+                <!-- блеск на экране -->
+                <path d="M151 103 L175 103 L160 143 L151 143 Z" fill="rgba(255,255,255,0.09)" />
+                <!-- нижняя булка -->
+                <path d="M42 122 C42 100 68 84 100 84 C132 84 158 100 158 122 C158 138 132 150 100 150 C68 150 42 138 42 122 Z" fill="#D9A45F" />
+                <path d="M42 122 C42 138 68 150 100 150 C132 150 158 138 158 122 L158 128 C158 144 132 156 100 156 C68 156 42 144 42 128 Z" fill="#B5843F" />
+                <!-- кунжут -->
+                <ellipse cx="76" cy="104" rx="5" ry="3" fill="#F6E2BC" transform="rotate(-26 76 104)" />
+                <ellipse cx="100" cy="97" rx="5" ry="3" fill="#F6E2BC" />
+                <ellipse cx="124" cy="104" rx="5" ry="3" fill="#F6E2BC" transform="rotate(26 124 104)" />
+                <ellipse cx="88" cy="116" rx="4" ry="2.6" fill="#F6E2BC" transform="rotate(-14 88 116)" />
+                <ellipse cx="112" cy="116" rx="4" ry="2.6" fill="#F6E2BC" transform="rotate(14 112 116)" />
+                <!-- наушники -->
+                <path d="M50 118 C46 96 68 78 100 78 C132 78 154 96 150 118" fill="none" stroke="#3B4459" stroke-width="9" stroke-linecap="round" />
+                <rect x="42" y="112" width="18" height="28" rx="9" fill="#2C3446" />
+                <rect x="140" y="112" width="18" height="28" rx="9" fill="#2C3446" />
+                <rect x="46" y="117" width="10" height="18" rx="5" fill="#4DFCFF" opacity="0.75" />
+                <rect x="144" y="117" width="10" height="18" rx="5" fill="#4DFCFF" opacity="0.75" />
+                <!-- глаза -->
+                <circle cx="79" cy="118" r="7.5" fill="#FDFDFF" />
+                <circle cx="121" cy="118" r="7.5" fill="#FDFDFF" />
+                <circle cx="81" cy="119" r="3.8" fill="#101425" />
+                <circle cx="123" cy="119" r="3.8" fill="#101425" />
+                <circle cx="82.5" cy="117.5" r="1.4" fill="#FFFFFF" />
+                <circle cx="124.5" cy="117.5" r="1.4" fill="#FFFFFF" />
+                <!-- рот -->
+                <path d="M92 136 Q100 144 108 136" fill="none" stroke="#101425" stroke-width="3.4" stroke-linecap="round" />
+                <!-- румянец -->
+                <ellipse cx="70" cy="132" rx="7" ry="4" fill="#FF8A8A" opacity="0.5" />
+                <ellipse cx="130" cy="132" rx="7" ry="4" fill="#FF8A8A" opacity="0.5" />
+            </svg>
         </div>
-        <div class="meme-card reveal reveal-rotate reveal-d2">
-            <div class="meme-emoji">😱</div>
-            <div class="meme-text">Мой гараж в Roblox</div>
-            <div class="meme-sub">#стройка</div>
+        <div class="burger-card__body">
+            <p class="burger-card__kicker">Главный по играм и прогулкам</p>
+            <h3 class="burger-card__title">RomaBurger™</h3>
+            <p class="burger-card__text">
+                Это реально бургер Рома, играющий в Roblox. Сидит в своём кресле, в наушниках,
+                и тащит катку с телефона. Съедобный, но умеет в Roblox лучше многих людей.
+            </p>
+            <div class="burger-card__stats">
+                <div class="burger-stat">
+                    <span class="burger-stat__num">100%</span>
+                    <span class="burger-stat__label">бургер</span>
+                </div>
+                <div class="burger-stat">
+                    <span class="burger-stat__num">Roblox</span>
+                    <span class="burger-stat__label">место работы</span>
+                </div>
+                <div class="burger-stat">
+                    <span class="burger-stat__num">∞</span>
+                    <span class="burger-stat__label">соус</span>
+                </div>
+            </div>
+            <a class="burger-card__btn" href="#projects">Смотреть проекты →</a>
         </div>
-        <div class="meme-card reveal reveal-rotate reveal-d3">
-            <div class="meme-emoji">🎮</div>
-            <div class="meme-text">Играю до утра с друзьями</div>
-            <div class="meme-sub">#ночь</div>
-        </div>
-        <div class="meme-card reveal reveal-rotate reveal-d4">
-            <div class="meme-emoji">🚶</div>
-            <div class="meme-text">Гуляю и слушаю музыку</div>
-            <div class="meme-sub">#прогулка</div>
-        </div>
-        <div class="meme-card reveal reveal-rotate reveal-d5">
-            <div class="meme-emoji">❄️</div>
-            <div class="meme-text">Зимой даже сосульки рофлят</div>
-            <div class="meme-sub">#зима</div>
-        </div>
-        <div class="meme-card reveal reveal-rotate reveal-d6">
-            <div class="meme-emoji">💰</div>
-            <div class="meme-text">Моя цель — заработать много денег</div>
-            <div class="meme-sub">#цель</div>
-        </div>
-    </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery" class="section gallery">
-    <div class="section__head">
-        <p class="eyebrow">08 / галерея</p>
-        <h2>Настроение</h2>
-    </div>
-    <div class="gallery__grid">
-        <div class="gallery-item reveal reveal-scale reveal-d1">🌅<span>Закат</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d2">🌲<span>Лес</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d3">🏙️<span>Город</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d4">❄️<span>Зима</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d5">🎮<span>Игры</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d1">😄<span>Смех</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d2">🚀<span>Идеи</span></div>
-        <div class="gallery-item reveal reveal-scale reveal-d3">🏆<span>Успех</span></div>
     </div>
 </section>
 
 <!-- STATS -->
 <section id="stats" class="section stats">
     <div class="section__head">
-        <p class="eyebrow">09 / статистика</p>
+        <p class="eyebrow">08 / статистика</p>
         <h2>Факты</h2>
     </div>
     <div class="stats__grid" id="statsGrid"></div>
@@ -2746,7 +2810,7 @@
 <!-- QUOTE -->
 <section id="quote" class="section quote">
     <div class="section__head">
-        <p class="eyebrow">10 / мудрость</p>
+        <p class="eyebrow">09 / мудрость</p>
         <h2>Цитата дня</h2>
     </div>
     <div class="quote-box reveal reveal-from-bottom" id="quoteBox">
@@ -2759,7 +2823,7 @@
 <!-- NEWS — улучшенный TIMELINE -->
 <section id="news" class="section news">
     <div class="section__head">
-        <p class="eyebrow">11 / новости</p>
+        <p class="eyebrow">10 / новости</p>
         <h2>События</h2>
     </div>
     <div class="timeline">
@@ -3149,7 +3213,7 @@
     // ============================================================
     (function() {
         const cards = document.querySelectorAll(
-            '.friend-card, .social-tile, .meme-card, .stat-item, .skill-item, .walk-card, .project-card, .gallery-item, .quote-box, .chip'
+            '.friend-card, .social-tile, .stat-item, .skill-item, .walk-card, .project-card, .burger-card, .quote-box, .chip'
         );
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -3303,7 +3367,7 @@
         animateTrail();
 
         const clickables = document.querySelectorAll(
-            'a, button, .btn, .social-tile, .friend-card, .chip, .meme-card, .stat-item, .walk-card, .project-card, .gallery-item'
+            'a, button, .btn, .social-tile, .friend-card, .chip, .stat-item, .walk-card, .project-card, .burger-card__btn'
         );
         clickables.forEach(el => {
             el.addEventListener('mouseenter', () => {
