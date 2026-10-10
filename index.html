@@ -469,13 +469,14 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: var(--neon-lime);
-            box-shadow: 0 0 12px var(--neon-lime);
+            background: var(--neon-cyan);
+            box-shadow: 0 0 12px var(--neon-cyan);
             flex-shrink: 0;
         }
-        .visitors--offline .visitors__icon {
-            background: var(--color-text-muted);
-            box-shadow: none;
+        /* Первый визит: другой оттенок, чтобы было видно «мы ещё не возвращались» */
+        .visitors--first .visitors__icon {
+            background: var(--neon-magenta);
+            box-shadow: 0 0 14px var(--neon-magenta);
         }
         .visitors__num {
             font-family: var(--font-heading);
@@ -2310,12 +2311,12 @@
     <!-- Бренд и навигация -->
     <a href="#hero" class="brandmark">ВЕРШАВАРИК</a>
 
-    <!-- Счётчик: реальные уникальные посетители, а не просмотры.
-         Значение подставляет скрипт в конце файла. -->
-    <div class="visitors" id="visitorsCounter" title="Уникальные посетители сайта">
+    <!-- Счётчик: свой код, без сервера и без внешних API.
+         Считает визиты в этом браузере, а не посетителей сайта. -->
+    <div class="visitors" id="visitorsCounter">
         <span class="visitors__icon" aria-hidden="true"></span>
-        <span class="visitors__num" id="visitorsNum">—</span>
-        <span class="visitors__label">посетителей</span>
+        <span class="visitors__num" id="visitorsNum">1</span>
+        <span class="visitors__label" id="visitorsLabel">визит</span>
     </div>
 
     <nav class="dotnav" aria-label="Навигация по разделам">
@@ -3374,73 +3375,69 @@
     })();
 
     // ============================================================
-    // 18. СЧЁТЧИК УНИКАЛЬНЫХ ПОСЕТИТЕЛЕЙ
+    // 18. СЧЁТЧИК
     // ============================================================
-    // Считаем людей, а не запросы: каждому браузеру выдаётся один
-    // уникальный ID, и залогиненный повторный заход его не увеличивает.
+    // Полностью на своём коде, без сервера и без внешних API.
     //
-    // Свой endpoint здесь намеренно не прописан: без сервера, который
-    // хранит множество ID, счётчик показал бы только твои же визиты.
-    // Как только появится адрес бэкенда, впиши его в VISITOR_ENDPOINT
-    // ниже — и счётчик начнёт считать настоящих гостей.
+    // Что код в браузере реально может посчитать, а что нет:
+    //   • посетителей сайта, зашедших с ДРУГИХ компьютеров — никак.
+    //     Число раз, когда страницу открыли, хранится у того, кто её
+    //     открыл. Узнать о чужих визитах без сервера невозможно в принципе.
+    //   • свои визиты, дату первого захода и сколько дней прошло —
+    //     это считается точно и хранится в localStorage.
+    //
+    // Поэтому подпись «посетителей» была бы враньём: счётчик показывает
+    // «визитов» — сколько раз открывали сайт в этом браузере.
     (function() {
         const box = document.getElementById('visitorsCounter');
         const num = document.getElementById('visitorsNum');
+        const label = document.getElementById('visitorsLabel');
         if (!box || !num) return;
 
-        // Впиши сюда адрес своего эндпоинта, когда появится.
-        const VISITOR_ENDPOINT = '';
+        const VISITS_KEY = 'vv_visits';
+        const FIRST_KEY = 'vv_first_visit';
+        const LAST_KEY = 'vv_last_visit';
 
-        const KEY = 'vv_visitor_id';
+        // Сутки в миллисекундах: повторный заход в тот же день не
+        // засчитывается новым визитом.
+        const DAY = 86400000;
 
-        function readVisitorId() {
-            try { return localStorage.getItem(KEY); } catch (e) { return null; }
-        }
-        function writeVisitorId(id) {
-            try { localStorage.setItem(KEY, id); } catch (e) { /* приватный режим */ }
-        }
-
-        function makeId() {
-            if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
-            // Запасной вариант для старых браузеров
-            return 'v-' + Date.now().toString(36) + '-' +
-                Math.random().toString(36).slice(2, 10);
-        }
-
-        if (!VISITOR_ENDPOINT) {
-            // Сервера нет — показываем честный локальный счётчик визитов
-            // этого браузера и честно помечаем его как офлайн-режим.
-            const visitsKey = 'vv_local_visits';
-            let visits = 0;
-            try { visits = parseInt(localStorage.getItem(visitsKey) || '0', 10) + 1; } catch (e) { visits = 1; }
-            try { localStorage.setItem(visitsKey, String(visits)); } catch (e) { }
-            num.textContent = String(visits);
-            box.classList.add('visitors--offline');
-            box.title = 'Без сервера показываются только визиты этого браузера';
-            return;
+        let visits = 0;
+        let first = 0;
+        let last = 0;
+        try {
+            visits = parseInt(localStorage.getItem(VISITS_KEY) || '0', 10) || 0;
+            first = parseInt(localStorage.getItem(FIRST_KEY) || '0', 10) || 0;
+            last = parseInt(localStorage.getItem(LAST_KEY) || '0', 10) || 0;
+        } catch (e) {
+            // Приватный режим: запись недоступна, считаем в памяти
         }
 
-        // Сервер есть: шлём ID один раз, потом только читаем значение.
-        let id = readVisitorId();
-        const isNew = !id;
-        if (isNew) {
-            id = makeId();
-            writeVisitorId(id);
-        }
+        const now = Date.now();
+        const isNewDay = (now - last) >= DAY;
 
-        fetch(VISITOR_ENDPOINT, {
-            method: isNew ? 'POST' : 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            body: isNew ? JSON.stringify({ id: id }) : undefined
-        })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (typeof data.total === 'number') num.textContent = String(data.total);
-            })
-            .catch(function() {
-                num.textContent = '—';
-                box.classList.add('visitors--offline');
-            });
+        if (isNewDay) visits += 1;
+        if (!first) first = now;
+
+        try {
+            localStorage.setItem(VISITS_KEY, String(visits));
+            localStorage.setItem(FIRST_KEY, String(first));
+            localStorage.setItem(LAST_KEY, String(now));
+        } catch (e) { /* приватный режим — считаем только текущий сеанс */ }
+
+        if (!visits) visits = 1;
+
+        const days = Math.max(1, Math.round((now - first) / DAY));
+        const isReturning = days > 1;
+
+        num.textContent = String(visits);
+        if (label) label.textContent = visits === 1 ? 'визит' : 'визитов';
+
+        box.title = isReturning
+            ? 'Ты заходил ' + visits + ' раз, первый — ' + days + ' дн. назад'
+            : 'Первый визит';
+
+        box.classList.toggle('visitors--first', !isReturning);
     })();
 
     console.log('🚀 Вершаварик 2056 — сайт загружен!');
