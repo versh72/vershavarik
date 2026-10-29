@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07070d" />
+    <meta name="description" content="Вершаварик — личный сайт из Тюмени: проекты, прогулки, друзья и новые идеи." />
+    <meta name="robots" content="index, follow" />
     <title>Вершаварик — 3D Премиум 2056</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,6 +61,7 @@
         html {
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
+            color-scheme: dark;
         }
         body {
             background: var(--color-void);
@@ -83,6 +86,21 @@
             outline-offset: 4px;
             border-radius: 4px;
         }
+        .skip-link {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100000;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--neon-cyan);
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-mono);
+            transform: translateY(-150%);
+            transition: transform 0.2s ease;
+        }
+        .skip-link:focus { transform: translateY(0); }
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -159,8 +177,8 @@
            указателем. Раньше курсор скрывался глобально через cursor:none,
            и при сбое скрипта страница оставалась без курсора.
         ============================================================ */
-        .js body {
-            cursor: none;
+        @media (hover: hover) and (pointer: fine) {
+            .js body { cursor: none; }
         }
         .cursor {
             position: fixed;
@@ -578,6 +596,7 @@
             margin: 0 auto;
             padding: var(--pad-y) 1.6rem;
         }
+        section[id] { scroll-margin-top: 2rem; }
         .eyebrow {
             font-family: var(--font-mono);
             text-transform: uppercase;
@@ -2257,6 +2276,7 @@
             }
         }
         @media (prefers-reduced-motion: reduce) {
+            .js body { cursor: auto; }
             *,
             *::before,
             *::after {
@@ -2309,6 +2329,8 @@
 </head>
 <body>
 
+    <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+
     <!-- ПРЕЛОАДЕР -->
     <div id="preloader">
         <div class="preloader-spinner"></div>
@@ -2328,39 +2350,39 @@
     </div>
 
     <!-- Световой след за курсором -->
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
     <!-- Кастомный курсор -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-trail" id="cursorTrail"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+    <div class="cursor-trail" id="cursorTrail" aria-hidden="true"></div>
 
     <!-- Бренд и навигация -->
     <a href="#hero" class="brandmark">ВЕРШАВАРИК</a>
 
     <!-- Счётчик: свой код, без сервера и без внешних API.
          Считает визиты в этом браузере, а не посетителей сайта. -->
-    <div class="visitors" id="visitorsCounter">
+    <div class="visitors" id="visitorsCounter" aria-live="polite" aria-label="Счётчик визитов в этом браузере">
         <span class="visitors__icon" aria-hidden="true"></span>
         <span class="visitors__num" id="visitorsNum">1</span>
         <span class="visitors__label" id="visitorsLabel">визит</span>
     </div>
 
     <nav class="dotnav" aria-label="Навигация по разделам">
-        <a href="#hero" data-label="Главная" class="dotnav__dot active"></a>
-        <a href="#about" data-label="Обо мне" class="dotnav__dot"></a>
-        <a href="#skills" data-label="Навыки" class="dotnav__dot"></a>
-        <a href="#friends" data-label="Друзья" class="dotnav__dot"></a>
-        <a href="#social" data-label="Соцсети" class="dotnav__dot"></a>
-        <a href="#walks" data-label="Прогулки" class="dotnav__dot"></a>
-        <a href="#projects" data-label="Проекты" class="dotnav__dot"></a>
-        <a href="#romaburger" data-label="RomaBurger™" class="dotnav__dot"></a>
-        <a href="#stats" data-label="Статистика" class="dotnav__dot"></a>
-        <a href="#quote" data-label="Цитаты" class="dotnav__dot"></a>
-        <a href="#news" data-label="Новости" class="dotnav__dot"></a>
+        <a href="#hero" data-label="Главная" aria-label="Главная" class="dotnav__dot active"></a>
+        <a href="#about" data-label="Обо мне" aria-label="Обо мне" class="dotnav__dot"></a>
+        <a href="#skills" data-label="Навыки" aria-label="Навыки" class="dotnav__dot"></a>
+        <a href="#friends" data-label="Друзья" aria-label="Друзья" class="dotnav__dot"></a>
+        <a href="#social" data-label="Соцсети" aria-label="Соцсети" class="dotnav__dot"></a>
+        <a href="#walks" data-label="Прогулки" aria-label="Прогулки" class="dotnav__dot"></a>
+        <a href="#projects" data-label="Проекты" aria-label="Проекты" class="dotnav__dot"></a>
+        <a href="#romaburger" data-label="RomaBurger™" aria-label="RomaBurger" class="dotnav__dot"></a>
+        <a href="#stats" data-label="Статистика" aria-label="Статистика" class="dotnav__dot"></a>
+        <a href="#quote" data-label="Цитаты" aria-label="Цитаты" class="dotnav__dot"></a>
+        <a href="#news" data-label="Новости" aria-label="Новости" class="dotnav__dot"></a>
     </nav>
 
-    <button class="mobile-menu-toggle" aria-label="Открыть меню" id="menuToggle">☰</button>
-    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Мобильное меню">
+    <button class="mobile-menu-toggle" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false" id="menuToggle">☰</button>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
         <a href="#hero" class="active">Главная</a>
         <a href="#about">Обо мне</a>
         <a href="#skills">Навыки</a>
@@ -2372,9 +2394,9 @@
         <a href="#stats">Статистика</a>
         <a href="#quote">Цитаты</a>
         <a href="#news">Новости</a>
-    </div>
+    </nav>
 
-    <main>
+    <main id="main-content" tabindex="-1">
 
         <!-- HERO -->
         <section id="hero" class="section hero">
@@ -2382,8 +2404,8 @@
                 <div class="hero__content">
                     <p class="eyebrow">// система идентификации</p>
                     <div class="hero__name-wrapper">
-                        <h1 class="hero__name" id="heroName" data-text="ВЕРШАВАРИК">ВЕРШАВАРИК</h1>
-                        <div class="hero__name-sub" id="nameSub">↕ нажми пробел</div>
+                        <h1 class="hero__name" id="heroName" data-text="ВЕРШАВАРИК" tabindex="0" role="button" aria-label="Переключить написание имени">ВЕРШАВАРИК</h1>
+                        <div class="hero__name-sub" id="nameSub">↕ нажми на имя</div>
                     </div>
                     <p class="hero__tagline" id="typedText">
                         <span id="typedContent"></span><span class="cursor-blink"></span>
@@ -2903,10 +2925,15 @@
     (function() {
         const canvas = document.getElementById('stars-canvas');
         if (!canvas) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            canvas.style.display = 'none';
+            return;
+        }
         const ctx = canvas.getContext('2d');
         let w, h;
         let stars = [];
-        const COUNT = 300;
+        const COUNT = window.innerWidth < 860 ? 110 : 180;
+        let animationFrame;
 
         function resize() {
             w = window.innerWidth;
@@ -2930,6 +2957,7 @@
         }
 
         function drawStars() {
+            if (document.hidden) return;
             ctx.clearRect(0, 0, w, h);
             stars.forEach(s => {
                 s.x += s.dx;
@@ -2946,8 +2974,15 @@
                 ctx.fill();
                 ctx.shadowBlur = 0;
             });
-            requestAnimationFrame(drawStars);
+            animationFrame = requestAnimationFrame(drawStars);
         }
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationFrame);
+            } else {
+                drawStars();
+            }
+        });
         drawStars();
     })();
 
@@ -2956,7 +2991,7 @@
     // ============================================================
     (function() {
         const container = document.getElementById('emojiRain');
-        if (!container) return;
+        if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const emojis = ['😂', '🤣', '😎', '🔥', '💪', '🎮', '🚀', '✨', '🎉', '🤖', '🦄', '🌲', '❄️', '🏙️', '💰'];
         const count = 45;
         for (let i = 0; i < count; i++) {
@@ -2985,6 +3020,10 @@
         let isDeleting = false;
         const typedContent = document.getElementById('typedContent');
         if (!typedContent) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            typedContent.textContent = phrases[0];
+            return;
+        }
 
         function type() {
             const current = phrases[phraseIndex];
@@ -3070,13 +3109,13 @@
                     nameEl.textContent = newText;
                     nameEl.dataset.text = newText;
                     isTransforming = false;
-                    subEl.textContent = index === 0 ? '↕ нажми пробел' : '↕ назад';
+                    subEl.textContent = index === 0 ? '↕ нажми на имя' : '↕ назад';
                 }
             }, 30);
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === ' ' || e.key === 'Space') {
+        nameEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
                 e.preventDefault();
                 switchName();
             }
@@ -3212,6 +3251,8 @@
     // 9. 3D-НАКЛОН (усилен)
     // ============================================================
     (function() {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const cards = document.querySelectorAll(
             '.friend-card, .social-tile, .stat-item, .skill-item, .walk-card, .project-card, .burger-card, .quote-box, .chip'
         );
@@ -3318,12 +3359,14 @@
             const isOpen = menu.classList.toggle('open');
             toggle.textContent = isOpen ? '✕' : '☰';
             toggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+            toggle.setAttribute('aria-expanded', String(isOpen));
         });
         menu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 menu.classList.remove('open');
                 toggle.textContent = '☰';
                 toggle.setAttribute('aria-label', 'Открыть меню');
+                toggle.setAttribute('aria-expanded', 'false');
             });
         });
         document.addEventListener('keydown', (e) => {
@@ -3331,6 +3374,8 @@
                 menu.classList.remove('open');
                 toggle.textContent = '☰';
                 toggle.setAttribute('aria-label', 'Открыть меню');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.focus();
             }
         });
     })();
@@ -3342,7 +3387,9 @@
         const cursor = document.getElementById('cursor');
         const trail = document.getElementById('cursorTrail');
         const glow = document.getElementById('cursorGlow');
-        if (!cursor || !trail || !glow) return;
+        if (!cursor || !trail || !glow ||
+            !window.matchMedia('(hover: hover) and (pointer: fine)').matches ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         let mouseX = 0,
             mouseY = 0;
         let trailX = 0,
@@ -3408,7 +3455,7 @@
     // ============================================================
     (function() {
         const layers = document.querySelectorAll('.parallax-layer');
-        if (!layers.length) return;
+        if (!layers.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             layers.forEach(layer => {
