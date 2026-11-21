@@ -1,63 +1,88 @@
 <!DOCTYPE html>
-<html data-om-id="924acdaa:om-html-1" data-src-ver="924acdaa" lang="ru"><head>
+<html data-om-id="dafa62e0:om-html-1" data-src-ver="dafa62e0" lang="ru" class="js"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07070a">
+<meta name="color-scheme" content="dark">
 <title>Vershavarik — Web Developer</title>
-<meta name="description" content="Вершаварик (Матвей) — веб-разработчик. Проекты, эксперименты, идеи. Welcome to my world.">
+<meta name="description" content="Вершаварик (Матвей) — веб-разработчик из Тюмени. VibeMatch, V-Rik, игры и эксперименты. Welcome to my world.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vershavarik — Web Developer">
+<meta property="og:description" content="Проекты, эксперименты, идеи. Welcome to my world.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307070a'/%3E%3Cpath d='M14 16h9l9 22 9-22h9L37 48h-10z' fill='%23d4ff3a'/%3E%3C/svg%3E">
+<script>
+  /* runs before paint: enables JS-only states, skips the loader on repeat visits */
+  (function(d){d.classList.add('js');try{if(!sessionStorage.getItem('vv-seen'))d.classList.add('first')}catch(e){d.classList.add('first')}})(document.documentElement);
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&amp;family=Manrope:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="styles.css">
+<script src="shader.js" defer=""></script>
+<script src="app.js" defer=""></script>
 </head>
-<body class="">
+<body>
 
-<!-- PRELOADER -->
-<div class="loader done" id="loader">
-  <div class="loader__top mono"><span>VERSHAVARIK</span><span>/ initializing world</span></div>
-  <div class="loader__count" id="loaderCount">100</div>
-  <div class="loader__bar"><i id="loaderBar" style="width: 100%;"></i></div>
-</div>
+<a class="skip mono" href="#about">Перейти к содержанию</a>
 
-<div class="cursor" id="cursor" style="transform: translate(878px, 510.5px) translate(-50%, -50%);"><span class="cursor__label" id="cursorLabel"></span></div>
-<div class="grain"></div>
+<!-- PRELOADER (first visit only) -->
+
+
+<div class="cursor" id="cursor" aria-hidden="true" style="transform: translate3d(1333.07px, 341.24px, 0px);"><span class="cursor__label" id="cursorLabel">Ask</span></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true" style="transform: scaleX(0.966101);"></div>
 
 <!-- NAV -->
-<header class="nav" id="nav">
-  <a href="#top" class="nav__logo" data-magnetic="">
+<header class="nav is-solid" id="nav">
+  <a href="#top" class="nav__logo" data-magnetic="" aria-label="Vershavarik — наверх">
     <span class="nav__mark">V</span><span class="mono">vershavarik</span>
   </a>
-  <nav class="nav__links mono">
-    <a href="#about">01 About</a>
-    <a href="#projects">02 Projects</a>
-    <a href="#explore">03 Explore</a>
-    <a href="#ask">04 Ask</a>
+  <nav class="nav__links mono" aria-label="Разделы">
+    <a href="#about" class=""><i>01</i> About</a>
+    <a href="#projects" class=""><i>02</i> Projects</a>
+    <a href="#explore" class=""><i>03</i> Explore</a>
+    <a href="#ask" class="is-active"><i>04</i> Ask</a>
   </nav>
   <a href="https://t.me/vershavarikblog" target="_blank" rel="noopener" class="nav__tg" data-magnetic="">
     <span class="dot"></span><span class="mono">Telegram-канал</span>
   </a>
+  <button class="nav__burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </header>
+
+<!-- MOBILE MENU -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__links">
+    <a href="#about"><i class="mono">01</i>About</a>
+    <a href="#projects"><i class="mono">02</i>Projects</a>
+    <a href="#explore"><i class="mono">03</i>Explore</a>
+    <a href="#ask"><i class="mono">04</i>Ask</a>
+  </nav>
+  <a class="menu__tg mono" href="https://t.me/vershavarikblog" target="_blank" rel="noopener"><span class="dot"></span>t.me/vershavarikblog ↗</a>
+</div>
 
 <main id="top">
 
   <!-- HERO -->
   <section class="hero" data-screen-label="Hero">
-    <canvas id="gl" class="hero__gl" width="339" height="490"></canvas>
-    <div class="hero__vignette"></div>
+    <canvas id="gl" class="hero__gl" aria-hidden="true" width="265" height="382"></canvas>
+    <div class="hero__vignette" aria-hidden="true"></div>
 
     <div class="hero__meta mono">
-      <span>⌘ WEB DEVELOPER</span>
-      <span class="hero__clock" id="clock">TYUMEN 00:41 · UTC+5</span>
+      <span>⌘ Web developer</span>
+      <span class="hero__clock" id="clock">TYUMEN 04:00 · UTC+5</span>
     </div>
 
     <div class="hero__center">
-      <p class="hero__hello mono reveal-up in">ㅤwelcome to my world.</p>
-      <h1 class="hero__title" id="heroTitle" aria-label="Vershavarik"><span class="chw"><span class="ch">V</span></span><span class="chw"><span class="ch">E</span></span><span class="chw"><span class="ch">R</span></span><span class="chw"><span class="ch">S</span></span><span class="chw"><span class="ch">H</span></span><span class="chw"><span class="ch">A</span></span><span class="chw"><span class="ch">V</span></span><span class="chw"><span class="ch">A</span></span><span class="chw"><span class="ch">R</span></span><span class="chw"><span class="ch">I</span></span><span class="chw"><span class="ch">K</span></span></h1>
+      <p class="hero__hello mono reveal-up in">welcome to my world.</p>
+      <div class="hero__fit" id="heroFit">
+        <h1 class="hero__title" id="heroTitle" aria-label="Vershavarik" style="--fit: 72.23px;"><span class="chw" aria-hidden="true" style=""><span class="ch">V</span></span><span class="chw" aria-hidden="true" style=""><span class="ch" style="">E</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">R</span></span><span class="chw" aria-hidden="true" style=""><span class="ch" style="">S</span></span><span class="chw" aria-hidden="true" style=""><span class="ch" style="">H</span></span><span class="chw" aria-hidden="true" style=""><span class="ch" style="">A</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">V</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">A</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">R</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">I</span></span><span class="chw" aria-hidden="true" style=""><span class="ch">K</span></span></h1>
+      </div>
       <div class="hero__sub">
-        <p class="reveal-up in">Привет! Меня зовут <b>Матвей</b>.<br>Строю цифровые продукты, исследую технологии<br>и превращаю идеи в&nbsp;реальность.</p>
+        <p class="reveal-up in">Привет! Меня зовут <b>Матвей</b>.<br>Строю цифровые продукты, исследую технологии и&nbsp;превращаю идеи в&nbsp;реальность.</p>
         <div class="hero__roles mono reveal-up in">
           <span>сейчас:</span>
-          <span class="roller" id="roller" style="position: relative;"><i style="transform: translateY(-100%); opacity: 0;">развиваю VibeMatch</i><i style="transform: none; position: absolute;">делаю игры</i></span>
+          <span class="roller" id="roller" aria-live="polite"><i style="transform: none; opacity: 1;">развиваю VibeMatch</i></span>
         </div>
       </div>
     </div>
@@ -69,8 +94,8 @@
   </section>
 
   <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
+  <div class="marquee paused" aria-hidden="true">
+    <div class="marquee__track" id="marquee">
       <span>Building digital products</span><b>✦</b><span>Telegram bots</span><b>✦</b><span>Messengers</span><b>✦</b><span>Web apps</span><b>✦</b><span>Games</span><b>✦</b><span>Experiments</span><b>✦</b>
       <span>Building digital products</span><b>✦</b><span>Telegram bots</span><b>✦</b><span>Messengers</span><b>✦</b><span>Web apps</span><b>✦</b><span>Games</span><b>✦</b><span>Experiments</span><b>✦</b>
     </div>
@@ -79,17 +104,17 @@
   <!-- ABOUT -->
   <section class="about section" id="about" data-screen-label="01 About">
     <div class="section__label mono"><span>01</span><span>/ about me</span></div>
-    <p class="about__text" id="aboutText"><span class="wd">Моя</span> <span class="wd">жизнь,</span> <span class="wd">мои</span> <span class="wd">мысли,</span> <span class="wd">идеи</span> <span class="wd">и</span> <span class="wd">проекты.</span> <span class="wd">Просто</span> <span class="wd">делюсь</span> <span class="wd">тем,</span> <span class="wd">что</span> <span class="wd">создаю,</span> <span class="wd">чем</span> <span class="wd">интересуюсь</span> <span class="wd">и</span> <span class="wd">что</span> <span class="wd">происходит</span> <span class="wd">вокруг.</span></p>
+    <p class="about__text" id="aboutText"><span class="wd lit">Моя</span> <span class="wd lit">жизнь,</span> <span class="wd lit">мои</span> <span class="wd lit">мысли,</span> <span class="wd lit">идеи</span> <span class="wd lit">и</span> <span class="wd lit">проекты.</span> <span class="wd lit">Просто</span> <span class="wd lit">делюсь</span> <span class="wd lit">тем,</span> <span class="wd lit">что</span> <span class="wd lit">создаю,</span> <span class="wd lit">чем</span> <span class="wd lit">интересуюсь</span> <span class="wd lit">и</span> <span class="wd lit">что</span> <span class="wd lit">происходит</span> <span class="wd lit">вокруг.</span></p>
     <div class="about__grid">
-      <div class="about__cell reveal-up">
+      <div class="about__cell reveal-up in">
         <span class="mono dim">Роль</span>
         <p>Web developer — от идеи и дизайна до бэкенда и деплоя.</p>
       </div>
-      <div class="about__cell reveal-up">
+      <div class="about__cell reveal-up in">
         <span class="mono dim">Фокус</span>
         <p>Мессенджеры, Telegram-боты, веб-приложения и игры.</p>
       </div>
-      <div class="about__cell reveal-up">
+      <div class="about__cell reveal-up in">
         <span class="mono dim">Принцип</span>
         <p>Building my own path, one project at a time.</p>
       </div>
@@ -100,7 +125,7 @@
   <section class="projects section" id="projects" data-screen-label="02 Projects">
     <div class="section__head">
       <div class="section__label mono"><span>02</span><span>/ my projects</span></div>
-      <h2 class="h2 split"><span class="w"><span style="transition-delay: 0s;">Что</span></span> <span class="w"><span style="transition-delay: 0.06s;">я</span></span> <span class="w"><span style="transition-delay: 0.12s;">создаю</span></span></h2>
+      <h2 class="h2 split in"><span class="w"><span style="transition-delay: 0s;">Что</span></span> <span class="w"><span style="transition-delay: 0.06s;">я</span></span> <span class="w"><span style="transition-delay: 0.12s;">создаю</span></span></h2>
     </div>
 
     <!-- VibeMatch -->
@@ -108,22 +133,23 @@
       <div class="feature__info">
         <div class="feature__idx mono">P—01 · Telegram bot</div>
         <h3 class="feature__name">VibeMatch</h3>
-        <p class="feature__desc">Бот знакомств по вайбу — находи людей, с которыми совпадают интересы и&nbsp;ответы. Музыка, образ жизни, настроение — всё складывается в&nbsp;Vibe DNA.</p>
+        <p class="feature__desc">Бот знакомств по вайбу — находи людей, с которыми совпадают интересы и&nbsp;ответы. Музыка, образ жизни, настроение — всё складывается в&nbsp;Vibe&nbsp;DNA.</p>
         <div class="feature__tags mono"><span>Live</span><span>Telegram</span><span>Matching</span></div>
-        <a class="btn" href="https://t.me/VibeMatchFindBot" target="_blank" rel="noopener" data-magnetic="" data-cursor="Open">
+        <a class="btn" href="https://t.me/VibeMatchFindBot" target="_blank" rel="noopener" data-magnetic="" data-cursor="Open" style="transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);">
           <span>@VibeMatchFindBot</span><i>↗</i>
         </a>
       </div>
-      <div class="feature__stage" data-tilt="">
-        <div class="vm">
+      <div class="feature__stage" data-tilt="" aria-hidden="true">
+        <div class="vm card3d" style="--gx: -73.50081812742378%; --gy: 89.44431021178222%;">
+          <span class="glare"></span>
           <div class="vm__head">
             <div class="vm__ava">V</div>
             <div><b>VibeMatch</b><small class="mono">bot</small></div>
           </div>
-          <div class="vm__chat" id="vmChat"></div>
+          <div class="vm__chat" id="vmChat"><div class="bub ">Привет! Что сейчас слушаешь?</div><div class="bub me">Phonk и lo-fi по вечерам</div><div class="bub chips"><span>🎧 музыка</span><span>🌙 ночной</span><span>💻 код</span></div><div class="bub ">Ищу совпадения по Vibe DNA…</div><div class="bub ">Нашёл! <b>Лиза</b> — совпадение 91% ✦</div></div>
           <div class="vm__ring">
-            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="vm__ring-bg"></circle><circle cx="60" cy="60" r="52" class="vm__ring-fg" id="vmRing"></circle></svg>
-            <div class="vm__ring-num"><span id="vmPct">0</span>%<small class="mono">vibe match</small></div>
+            <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="vm__ring-bg"></circle><circle cx="60" cy="60" r="52" class="vm__ring-fg" id="vmRing" style="stroke-dashoffset: 29.43;"></circle></svg>
+            <div class="vm__ring-num"><span id="vmPct">91</span>%<small class="mono">vibe match</small></div>
           </div>
         </div>
       </div>
@@ -140,8 +166,9 @@
           <span>Открыть V-Rik</span><i>↗</i>
         </a>
       </div>
-      <div class="feature__stage" data-tilt="">
-        <div class="vr">
+      <div class="feature__stage" data-tilt="" aria-hidden="true">
+        <div class="vr card3d" style="--gx: 63.239649109741094%; --gy: 92.48440832982998%;">
+          <span class="glare"></span>
           <aside class="vr__side">
             <div class="vr__brand">V-Rik</div>
             <div class="vr__item is-on"><i style="--h:265"></i><div><b>Команда</b><small>голосовое · 0:14</small></div></div>
@@ -151,22 +178,22 @@
           </aside>
           <div class="vr__main">
             <div class="vr__top"><b>Команда</b><span class="mono">3 online</span></div>
-            <div class="vr__msgs" id="vrMsgs"></div>
+            <div class="vr__msgs" id="vrMsgs"><div class="bub "><small>Рома</small>Кидаю файл с макетом</div><div class="bub me">Принял, смотрю</div><div class="bub "><small>Никита</small>Поиск по чатам — топ</div><div class="bub "><small>Никита</small>Залил новый билд?</div><div class="bub me">Да, голос теперь на WebRTC</div><div class="bub "><small>Дима</small>Звук чистый, задержки нет 🔥</div></div>
             <div class="vr__call">
               <span class="mono">● voice</span>
-              <div class="vr__wave" id="vrWave"><i style="height: 77.3027%;"></i><i style="height: 77.5675%;"></i><i style="height: 22.2308%;"></i><i style="height: 25.7621%;"></i><i style="height: 16.8092%;"></i><i style="height: 57.7985%;"></i><i style="height: 57.9231%;"></i><i style="height: 48.6497%;"></i><i style="height: 76.1799%;"></i><i style="height: 28.7513%;"></i><i style="height: 18.4751%;"></i><i style="height: 29.0764%;"></i><i style="height: 78.9824%;"></i><i style="height: 15.8443%;"></i><i style="height: 87.5033%;"></i><i style="height: 41.6289%;"></i><i style="height: 26.9516%;"></i><i style="height: 35.0577%;"></i><i style="height: 70.2172%;"></i><i style="height: 59.0626%;"></i><i style="height: 40.2838%;"></i><i style="height: 30.5963%;"></i><i style="height: 44.4104%;"></i><i style="height: 24.8142%;"></i><i style="height: 33.4571%;"></i><i style="height: 68.1168%;"></i><i style="height: 33.2481%;"></i><i style="height: 70.1507%;"></i><i style="height: 50.4366%;"></i><i style="height: 15.0622%;"></i><i style="height: 27.7611%;"></i><i style="height: 17.0346%;"></i><i style="height: 59.9047%;"></i><i style="height: 17.7314%;"></i></div>
-              <span class="mono" id="vrTime">00:05</span>
+              <div class="vr__wave" id="vrWave"><i style="transform: scaleY(0.397);"></i><i style="transform: scaleY(0.202);"></i><i style="transform: scaleY(0.263);"></i><i style="transform: scaleY(0.812);"></i><i style="transform: scaleY(0.598);"></i><i style="transform: scaleY(0.412);"></i><i style="transform: scaleY(0.49);"></i><i style="transform: scaleY(0.163);"></i><i style="transform: scaleY(0.476);"></i><i style="transform: scaleY(0.416);"></i><i style="transform: scaleY(0.162);"></i><i style="transform: scaleY(0.673);"></i><i style="transform: scaleY(0.641);"></i><i style="transform: scaleY(0.153);"></i><i style="transform: scaleY(0.236);"></i><i style="transform: scaleY(0.518);"></i><i style="transform: scaleY(0.284);"></i><i style="transform: scaleY(0.305);"></i><i style="transform: scaleY(0.21);"></i><i style="transform: scaleY(0.357);"></i><i style="transform: scaleY(0.268);"></i><i style="transform: scaleY(0.375);"></i><i style="transform: scaleY(0.339);"></i><i style="transform: scaleY(0.577);"></i><i style="transform: scaleY(0.21);"></i><i style="transform: scaleY(0.218);"></i><i style="transform: scaleY(0.16);"></i><i style="transform: scaleY(0.505);"></i><i style="transform: scaleY(0.346);"></i><i style="transform: scaleY(0.584);"></i><i style="transform: scaleY(0.769);"></i><i style="transform: scaleY(0.591);"></i><i style="transform: scaleY(0.186);"></i><i style="transform: scaleY(0.273);"></i></div>
+              <span class="mono" id="vrTime">00:15</span>
             </div>
           </div>
         </div>
       </div>
     </article>
 
-    <!-- Other projects list -->
+    <!-- Other projects -->
     <div class="plist">
       <div class="plist__head mono"><span>Другие эксперименты</span><span>Статус</span></div>
       <a class="prow" href="https://yandex.ru/games/app/587561?draft=true&amp;lang=ru" target="_blank" rel="noopener" data-cursor="Play">
-        <span class="prow__n mono">03</span><span class="prow__t">Eno Card Battle</span><span class="prow__d">Карточная игра для Яндекс Игр</span><span class="prow__s mono s-live">Released</span>
+        <span class="prow__n mono">03</span><span class="prow__t">Eno Card Battle <i class="prow__arr">↗</i></span><span class="prow__d">Карточная игра для Яндекс Игр</span><span class="prow__s mono s-live">Released</span>
       </a>
       <div class="prow"><span class="prow__n mono">04</span><span class="prow__t">Горячая картошка</span><span class="prow__d">Party-игра для Roblox</span><span class="prow__s mono">In dev</span></div>
       <div class="prow"><span class="prow__n mono">05</span><span class="prow__t">Garage Empire</span><span class="prow__d">Tycoon в Roblox</span><span class="prow__s mono s-off">Paused</span></div>
@@ -176,17 +203,14 @@
 
   <!-- TELEGRAM CHANNEL -->
   <section class="tg section" id="channel" data-screen-label="Telegram channel">
-    <div class="tg__bg" aria-hidden="true">
-      <div class="tg__ring"></div><div class="tg__ring"></div><div class="tg__ring"></div>
-    </div>
+    <div class="tg__bg paused" aria-hidden="true"><div class="tg__ring"></div><div class="tg__ring"></div><div class="tg__ring"></div></div>
     <div class="tg__inner">
       <div class="section__label mono"><span>✦</span><span>/ telegram channel</span></div>
-      <h2 class="tg__title split"><span class="w"><span style="transition-delay: 0s;">Вся</span></span> <span class="w"><span style="transition-delay: 0.06s;">жизнь</span></span> <span class="w"><span style="transition-delay: 0.12s;">—</span></span><br><span class="w"><span style="transition-delay: 0.18s;">в</span></span> <span class="w"><span style="transition-delay: 0.24s;">моём</span></span> <span class="w"><span style="transition-delay: 0.3s;">канале</span></span></h2>
+      <h2 class="tg__title split in"><span class="w"><span style="transition-delay: 0s;">Вся</span></span> <span class="w"><span style="transition-delay: 0.06s;">жизнь</span></span> <span class="w"><span style="transition-delay: 0.12s;">—</span></span><br><span class="w"><span style="transition-delay: 0.18s;">в</span></span> <span class="w"><span style="transition-delay: 0.24s;">моём</span></span> <span class="w"><span style="transition-delay: 0.3s;">канале</span></span></h2>
       <p class="tg__sub">Процесс разработки, релизы, мысли и&nbsp;то, что не&nbsp;попадает на&nbsp;сайт. Первым узнаёшь обо всём новом.</p>
       <a href="https://t.me/vershavarikblog" target="_blank" rel="noopener" class="tg__btn" data-magnetic="" data-cursor="Join">
-        <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13 1.5 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"></path></svg>
-        <span>t.me/vershavarikblog</span>
-        <i>↗</i>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.3 13 1.5 11.5c-1-.3-1-1 .2-1.5L20.6 2.8c.9-.3 1.6.2 1.3 1.5Z"></path></svg>
+        <span>t.me/vershavarikblog</span><i>↗</i>
       </a>
     </div>
     <div class="tg__feed" aria-hidden="true">
@@ -200,27 +224,27 @@
   <section class="explore section" id="explore" data-screen-label="03 Explore">
     <div class="section__head">
       <div class="section__label mono"><span>03</span><span>/ explore more</span></div>
-      <h2 class="h2 split"><span class="w"><span style="transition-delay: 0s;">Где</span></span> <span class="w"><span style="transition-delay: 0.06s;">меня</span></span> <span class="w"><span style="transition-delay: 0.12s;">найти</span></span></h2>
+      <h2 class="h2 split in"><span class="w"><span style="transition-delay: 0s;">Где</span></span> <span class="w"><span style="transition-delay: 0.06s;">меня</span></span> <span class="w"><span style="transition-delay: 0.12s;">найти</span></span></h2>
     </div>
     <div class="links">
-      <a class="lnk lnk--big" href="https://github.com/versh72" target="_blank" rel="noopener" data-cursor="Code">
+      <a class="lnk lnk--big" href="https://github.com/versh72" target="_blank" rel="noopener" data-cursor="Code" style="--mx: 612.7734375px; --my: -1.19140625px;">
+        <pre class="lnk__code mono" id="ghCode" aria-hidden="true"><div><span class="c">$</span> git log --oneline</div><div>a91f3c2 feat(v-rik): webrtc voice</div><div>7be04d1 feat(vibematch): referrals</div><div>e2c88aa release: eno card battle</div><div><span class="c">$</span> git push origin main</div><div><span class="c">✓</span> shipped.</div></pre>
         <span class="lnk__k mono">⌘ GitHub</span>
         <span class="lnk__t">github.com/versh72</span>
         <span class="lnk__d">Мои разработки, исходный код и&nbsp;эксперименты.</span>
-        <span class="lnk__arr">↗</span>
-        <pre class="lnk__code mono" id="ghCode"></pre>
+        <span class="lnk__arr" aria-hidden="true">↗</span>
       </a>
-      <a class="lnk" href="https://t.me/vershavarikblog" target="_blank" rel="noopener" data-cursor="Join">
-        <span class="lnk__k mono">Telegram</span><span class="lnk__t">@vershavarikblog</span><span class="lnk__arr">↗</span>
+      <a class="lnk" href="https://t.me/vershavarikblog" target="_blank" rel="noopener" data-cursor="Join" style="--mx: 5.7421875px; --my: -1.19140625px;">
+        <span class="lnk__k mono">Telegram</span><span class="lnk__t">@vershavarikblog</span><span class="lnk__arr" aria-hidden="true">↗</span>
       </a>
-      <a class="lnk" href="https://www.youtube.com/@Vershavarik" target="_blank" rel="noopener" data-cursor="Watch">
-        <span class="lnk__k mono">YouTube</span><span class="lnk__t">@Vershavarik</span><span class="lnk__arr">↗</span>
+      <a class="lnk" href="https://www.youtube.com/@Vershavarik" target="_blank" rel="noopener" data-cursor="Watch" style="--mx: 202.12890625px; --my: 176.30859375px;">
+        <span class="lnk__k mono">YouTube</span><span class="lnk__t">@Vershavarik</span><span class="lnk__arr" aria-hidden="true">↗</span>
       </a>
-      <a class="lnk" href="https://www.tiktok.com/@kekboy72" target="_blank" rel="noopener" data-cursor="Watch">
-        <span class="lnk__k mono">TikTok</span><span class="lnk__t">@kekboy72</span><span class="lnk__arr">↗</span>
+      <a class="lnk" href="https://www.tiktok.com/@kekboy72" target="_blank" rel="noopener" data-cursor="Watch" style="--mx: 161.9921875px; --my: 12.8125px;">
+        <span class="lnk__k mono">TikTok</span><span class="lnk__t">@kekboy72</span><span class="lnk__arr" aria-hidden="true">↗</span>
       </a>
-      <a class="lnk" href="https://www.instagram.com/vershavarikyt" target="_blank" rel="noopener" data-cursor="Follow">
-        <span class="lnk__k mono">Instagram</span><span class="lnk__t">@vershavarikyt</span><span class="lnk__arr">↗</span>
+      <a class="lnk" href="https://www.instagram.com/vershavarikyt" target="_blank" rel="noopener" data-cursor="Follow" style="--mx: 108.37890625px; --my: 5.3125px;">
+        <span class="lnk__k mono">Instagram</span><span class="lnk__t">@vershavarikyt</span><span class="lnk__arr" aria-hidden="true">↗</span>
       </a>
     </div>
   </section>
@@ -229,16 +253,16 @@
   <section class="log section" id="log" data-screen-label="Changelog">
     <div class="section__head">
       <div class="section__label mono"><span>⟳</span><span>/ changelog</span></div>
-      <h2 class="h2 split"><span class="w"><span style="transition-delay: 0s;">Журнал</span></span></h2>
+      <h2 class="h2 split in"><span class="w"><span style="transition-delay: 0s;">Журнал</span></span></h2>
     </div>
-    <ol class="timeline" style="--prog: 0%;">
-      <li><time class="mono">10.10.2026</time><p>Переписал сайт с нуля.</p></li>
-      <li><time class="mono">06.10.2026</time><p>В V-Rik перевёл голос на WebRTC.</p></li>
-      <li><time class="mono">03.10.2026</time><p>VibeMatch в проде: рефералка, атрибуция источников, метрики рекламы.</p></li>
-      <li><time class="mono">02.10.2026</time><p>Eno Card Battle вышла в Яндекс Играх.</p></li>
-      <li><time class="mono">27.09.2026</time><p>Старт VibeMatch — подбор людей по Vibe DNA.</p></li>
-      <li><time class="mono">07.08.2026</time><p>Первый коммит V-Rik: мессенджер на микросервисах.</p></li>
-      <li><time class="mono">01.07.2026</time><p>Собрал roblox-skills — 40 скиллов для разработки игр в Roblox.</p></li>
+    <ol class="timeline" id="timeline" style="--prog: 1.0000;">
+      <li class="in"><time class="mono" datetime="2026-10-10">10.10.2026</time><p>Переписал сайт с нуля.</p></li>
+      <li class="in"><time class="mono" datetime="2026-10-06">06.10.2026</time><p>В V-Rik перевёл голос на WebRTC.</p></li>
+      <li class="in"><time class="mono" datetime="2026-10-03">03.10.2026</time><p>VibeMatch в проде: рефералка, атрибуция источников, метрики рекламы.</p></li>
+      <li class="in"><time class="mono" datetime="2026-10-02">02.10.2026</time><p>Eno Card Battle вышла в Яндекс Играх.</p></li>
+      <li class="in"><time class="mono" datetime="2026-09-27">27.09.2026</time><p>Старт VibeMatch — подбор людей по Vibe DNA.</p></li>
+      <li class="in"><time class="mono" datetime="2026-08-07">07.08.2026</time><p>Первый коммит V-Rik: мессенджер на микросервисах.</p></li>
+      <li class="in"><time class="mono" datetime="2026-07-01">01.07.2026</time><p>Собрал roblox-skills — 40 скиллов для разработки игр в Roblox.</p></li>
     </ol>
   </section>
 
@@ -246,7 +270,7 @@
   <section class="ask section" id="ask" data-screen-label="04 Ask">
     <div class="section__label mono"><span>04</span><span>/ anonymous questions</span></div>
     <a class="ask__card" href="https://t.me/anonaskbot?start=mn6vxlc" target="_blank" rel="noopener" data-cursor="Ask">
-      <div class="ask__q" id="askQ" style="transform: rotate(-491.044deg);">?</div>
+      <div class="ask__q" id="askQ" aria-hidden="true" style="transform: rotate(-0.72deg);">?</div>
       <div class="ask__body">
         <h2 class="ask__title">Есть вопрос или хочешь сказать что-то анонимно?</h2>
         <p class="mono dim">Ask me anything. Completely anonymous.</p>
@@ -259,7 +283,9 @@
 <!-- FOOTER -->
 <footer class="foot" data-screen-label="Footer">
   <p class="foot__motto mono">Building my own path, one project at a time.</p>
-  <div class="foot__big" id="footBig"><span class="ch">V</span><span class="ch">E</span><span class="ch">R</span><span class="ch">S</span><span class="ch">H</span><span class="ch">A</span><span class="ch">V</span><span class="ch">A</span><span class="ch">R</span><span class="ch">I</span><span class="ch">K</span></div>
+  <div class="foot__fit" id="footFit">
+    <div class="foot__big" id="footBig" aria-hidden="true" style="--fit: 73.13px;"><span class="ch" style="">V</span><span class="ch" style="">E</span><span class="ch" style="">R</span><span class="ch" style="">S</span><span class="ch" style="">H</span><span class="ch" style="">A</span><span class="ch" style="">V</span><span class="ch" style="">A</span><span class="ch" style="">R</span><span class="ch" style="">I</span><span class="ch" style="">K</span></div>
+  </div>
   <div class="foot__row mono">
     <span>© 2026 Vershavarik</span>
     <span>Made in Tyumen</span>
@@ -267,8 +293,6 @@
   </div>
 </footer>
 
-<script src="shader.js"></script>
-<script src="app.js"></script>
 
 
 </body></html>
