@@ -60,20 +60,40 @@ let rz;addEventListener('resize',()=>{cancelAnimationFrame(rz);rz=requestAnimati
     heroReveals.forEach(e=>e.classList.add('in'));
     return;
   }
+  const loader=$('#loader'),cnt=$('#loaderCount'),bar=$('#loaderBar');
+  /* missing markup must never leave the page scroll-locked */
+  if(!loader||!cnt||!bar){heroReveals.forEach(e=>e.classList.add('in'));return;}
+
+  function revealHero(){
+    heroChars.forEach((c,i)=>c.animate(
+      [{transform:'translateY(110%) rotate(8deg)',opacity:0},{transform:'none',opacity:1}],
+      {duration:1200,delay:250+i*50,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'}
+    ).finished.then(a=>{c.style.transform='none';c.style.opacity='1';try{a.cancel()}catch(e){}}));
+    setTimeout(()=>heroReveals.forEach((e,i)=>setTimeout(()=>e.classList.add('in'),i*120)),800);
+  }
+
+  let finished=false,watchdog=0;
+  function finish(){
+    if(finished) return;
+    finished=true;
+    clearTimeout(watchdog);
+    loader.classList.add('done');
+    document.body.classList.remove('is-loading');
+    setTimeout(()=>loader.remove(),1200);
+    revealHero();
+  }
+  /* rAF is paused while the tab is in the background: the intro still has to end */
+  watchdog=setTimeout(finish,2600);
+
   document.body.classList.add('is-loading');
-  const cnt=$('#loaderCount'),bar=$('#loaderBar');
   const dur=1100,t0=performance.now();
-  await new Promise(res=>{(function f(){const p=Math.min((performance.now()-t0)/dur,1);const e=1-Math.pow(1-p,3);
-    cnt.textContent=String(Math.round(e*100)).padStart(3,'0');bar.style.transform=`scaleX(${e})`;
-    p<1?requestAnimationFrame(f):res();})();});
-  await sleep(120);
-  $('#loader').classList.add('done');document.body.classList.remove('is-loading');
-  setTimeout(()=>$('#loader')?.remove(),1200);
-  heroChars.forEach((c,i)=>c.animate(
-    [{transform:'translateY(110%) rotate(8deg)',opacity:0},{transform:'none',opacity:1}],
-    {duration:1200,delay:250+i*50,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'}
-  ).finished.then(a=>{c.style.transform='none';c.style.opacity='1';try{a.cancel()}catch(e){}}));
-  setTimeout(()=>heroReveals.forEach((e,i)=>setTimeout(()=>e.classList.add('in'),i*120)),800);
+  (function f(){
+    const p=Math.min((performance.now()-t0)/dur,1),e=1-Math.pow(1-p,3);
+    cnt.textContent=String(Math.round(e*100)).padStart(3,'0');
+    bar.style.transform=`scaleX(${e})`;
+    if(p<1) return requestAnimationFrame(f);
+    setTimeout(finish,120);
+  })();
 })();
 
 /* hero title: letters lift toward cursor (rects cached, updated in rAF) */
